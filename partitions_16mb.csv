@@ -1,0 +1,23 @@
+# Partition table for 16 MB flash (Waveshare ESP32-S3-Touch-LCD-1.47)
+#
+# Total flash: 0x1000000 (16 777 216 bytes)
+#
+# Layout:
+#   0x0000_0000 – 0x0000_0FFF  Second-stage bootloader        (4 KB, managed by ESP-IDF)
+#   0x0000_1000 – 0x0000_7FFF  Partition table itself          (28 KB)
+#   0x0000_8000 – 0x0000_8FFF  [reserved]
+#   0x0000_9000 – 0x0000_DFFF  nvs         (20 KB)
+#   0x0000_E000 – 0x0000_FFFF  otadata     ( 8 KB)
+#   0x0001_0000 – 0x050F_FFFF  app0  OTA_0 ( 5 MB)   ← main image
+#   0x0051_0000 – 0x00A0_FFFF  app1  OTA_1 ( 5 MB)   ← OTA target
+#   0x00A1_0000 – 0x00FF_FFFF  spiffs      ( 5 MB + 960 KB freeish buffer area)
+#
+# app0 at 5 MB gives plenty of room for Bluedroid + TinyUSB + Arduino_GFX
+# + the sniffer code (~2.5–3 MB typical).  OTA is optional but costs nothing.
+#
+# Name,     Type,  SubType,  Offset,     Size,       Flags
+nvs,        data,  nvs,      0x9000,     0x5000,
+otadata,    data,  ota,      0xe000,     0x2000,
+app0,       app,   ota_0,    0x10000,    0x500000,
+app1,       app,   ota_1,    0x510000,   0x500000,
+spiffs,     data,  spiffs,   0xA10000,   0x5F0000,
