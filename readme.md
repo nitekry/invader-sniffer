@@ -127,7 +127,7 @@ Requires [PlatformIO](https://platformio.org/).
 
 ```bash
 # WiFi firmware
-pio run -e ble_sniff_s3 -t upload   # swap main.cpp into src/
+pio run -e wifi_sniff_s3 -t upload   # swap main_wifi.cpp into src/
 
 # BLE firmware
 pio run -e ble_sniff_s3 -t upload   # uses main_ble.cpp in src/
